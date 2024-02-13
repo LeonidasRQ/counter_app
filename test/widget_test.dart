@@ -19,12 +19,37 @@ void main() {
     expect(find.text('0'), findsOneWidget);
     expect(find.text('1'), findsNothing);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    var plusOneButton = find.byIcon(Icons.plus_one);
+    var minusOneButton = find.byIcon(Icons.exposure_minus_1);
+    var resetButton = find.byIcon(Icons.refresh_outlined);
+
+    // Tap the '+1' icon and trigger a frame.
+    await tester.tap(plusOneButton);
     await tester.pump();
 
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
+
+    // Tap the '-1' icon and trigger a frame.
+    await tester.tap(minusOneButton);
+    await tester.pump();
+
+    // Verify that our counter has decremented.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
+
+    // Tap the '+1' icon and trigger a frame.
+    await tester.tap(plusOneButton);
+    await tester.tap(plusOneButton);
+    await tester.pump();
+
+    // Tap the reset button and trigger a frame.
+    await tester.tap(resetButton);
+    await tester.pump();
+
+    // Verify that our counter has resetted.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
   });
 }
